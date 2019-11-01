@@ -1,19 +1,16 @@
 export default class Square {
 
 
-    constructor(squareId, pos) {
+    constructor(squareId) {
         this._hitSign = " ";
         this._squareId = squareId;
-        this._pos = pos;
+
     }
 
     get squareId() {
         return this._squareId;
     }
 
-    get pos() {
-        return this._pos;
-    }
 
     get hitSign() {
         return this._hitSign;
