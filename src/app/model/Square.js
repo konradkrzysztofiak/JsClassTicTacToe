@@ -1,5 +1,5 @@
 export default class Square {
-    hitSign;
+
 
     constructor(squareId, pos) {
         this._hitSign = " ";
