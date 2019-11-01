@@ -23,9 +23,7 @@ export default class Board {
 
     refreshBoard() {
         for (let i = 0; i < this._squares.length; i++) {
-            if (this.squares[i].hitSign !== " ") {
-                document.getElementById(this.squares[i].squareId).innerHTML = "<p class='text-center'>" + this.squares[i].hitSign + "</p>";
-            }
+            document.getElementById(this.squares[i].squareId).innerHTML = "<p class='text-center'>" + this.squares[i].hitSign + "</p>";
         }
     }
 }

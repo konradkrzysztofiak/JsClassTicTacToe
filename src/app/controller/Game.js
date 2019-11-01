@@ -12,8 +12,10 @@ export default class Game {
 
     runApp() {
         this.initializeBoard();
+        let buttonReset = document.getElementById("reset");
         //while (this._gameIsRunning){
         let boardSquares = board.squares;
+        buttonReset.addEventListener("click", this.resetBoard);
         let htmlAllSquares = document.querySelectorAll(".boardSquare");
         for (let i = 0; i < htmlAllSquares.length; i++) {
             //todo
@@ -27,8 +29,18 @@ export default class Game {
 
 
     }
+    resetGame() {
+        //this.resetBoard();
+    }
 
-    //todo prywatna metoda
+    resetBoard() {
+        for (let i = 0; i < board.squares.length; i++) {
+            board.squares[i].hitSign = " ";
+        }
+        board.refreshBoard();
+    }
+
+//todo prywatna metoda
     initializeBoard() {
         board = new Board(this.generateSquares());
         board.fillBoard();
