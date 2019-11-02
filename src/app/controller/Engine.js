@@ -17,6 +17,7 @@ export default class Engine {
     runApp(id) {
 
         let buttonReset = document.getElementById("reset");
+
         buttonReset.addEventListener("click", this.resetBoard);
         activeTurn = playersController.getActivePlayer();
         if (activeTurn !== null){
