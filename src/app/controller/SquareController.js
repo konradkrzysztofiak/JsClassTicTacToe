@@ -25,9 +25,9 @@ export default class SquareController {
         return "Error";
     }
 
-    markSquare(id){
+    markSquare(id, sign){
         let square = this.getSquareById(id);
-        square.hitSign = "X";
+        square.hitSign = sign;
     }
 
 
