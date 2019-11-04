@@ -8,8 +8,13 @@ export default class BoardController {
         this._board = new Board(squaresList);
         this._squaresList = this._board.squares;
         this.fillBoard();
+        this._squaresList = squaresList;
     }
 
+
+    get squaresList() {
+        return this._squaresList;
+    }
 
     getBoard() {
         return this._board;

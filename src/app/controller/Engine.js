@@ -20,35 +20,46 @@ export default class Engine {
     }
 
     runApp(id) {
+        this._gameIsRunning = this.checkGameProgress();
+        if (this._gameIsRunning) {
+            this.buttonsInit();
+            this._activePlayer = this._playersController.getActivePlayer();
+            let square = this._squareController.getSquareById(id);
+            if (this._boardController.checkIfMoveIsValid(square)) {
+                this._squareController.markSquare(square, this._activePlayer.playerSign);
+                this._playersController.changeTurn();
+            }
+            this._boardController.refreshBoard();
+        }
+        console.log(this.gameIsRunning);
 
+    }
+
+
+    buttonsInit() {
         let buttonReset = document.getElementById("reset");
         let engine = this; // ?
         buttonReset.onclick = function () {
             //why i cant type just like this.methodName() ?
+            engine._gameIsRunning = true;
             engine.resetBoard();
         };
-        this._activePlayer = this._playersController.getActivePlayer();
-        let square = this._squareController.getSquareById(id);
-        if (this._activePlayer !== null) {
-            if (this._boardController.checkIfMoveIsValid(square)){
-                this._squareController.markSquare(square, this._activePlayer.playerSign);
-                this._playersController.changeTurn();
-            }
-
-        }
-        this._boardController.refreshBoard();
-
     }
 
+    checkGameProgress() {
+        let squaresList = this._boardController.squaresList;
+        let gameInProgress = [];
+        for (let i = 0; i < squaresList.length; i++) {
+            if (squaresList[i].hitSign === " ") {
+                gameInProgress.push(squaresList[i]);
+            }
+        }
+        return gameInProgress.length > 0;
+
+    }
 
     get gameIsRunning() {
         return this._gameIsRunning;
-    }
-
-//todo init in constructor
-    initPlayers() {
-        this._playersController = new PlayersController();
-        return this._playersController.playersList;
     }
 
     getPlayersList() {
