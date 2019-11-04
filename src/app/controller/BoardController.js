@@ -63,12 +63,10 @@ export default class BoardController {
 
     markWinnerSquares(squaresList, color, playerName) {
         for (let i = 0; i < squaresList.length; i++) {
-            if (playerName !== "DRAW"){
+            if (playerName !== "DRAW") {
                 document.getElementById(squaresList[i]).style.backgroundColor = color;
             } else {
-                for (let j = 0; j < squaresList.length; j++){
-                    document.getElementById(squaresList[i].squareId).style.backgroundColor = color;
-                }
+                document.getElementById(squaresList[i].squareId).style.backgroundColor = color;
             }
 
         }
