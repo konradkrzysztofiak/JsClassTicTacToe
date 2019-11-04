@@ -14,7 +14,6 @@ export default class PlayersController {
     }
 
 
-
     get playersList() {
         return this._playersList;
     }
@@ -39,14 +38,14 @@ export default class PlayersController {
 
     getPlayerById(id) {
         for (let i = 0; i < this.playersList.length; i++) {
-            if (this.playersList[i].playerId == id) {
+            if (this.playersList[i].playerId === id) {
                 return this.playersList[i];
             }
         }
         return "Error";
     }
 
-    getPlayerBySign(sign){
+    getPlayerBySign(sign) {
         for (let i = 0; i < this.playersList.length; i++) {
             if (this.playersList[i].playerSign === sign) {
                 return this.playersList[i];
@@ -58,11 +57,7 @@ export default class PlayersController {
     changeTurn() {
         let nextTurnPlayer = this.getPlayerWhereTurnFalse();
         for (let i = 0; i < this.playersList.length; i++) {
-            if (this.playersList[i].playerId == nextTurnPlayer.playerId) {
-                this.playersList[i].turn = true;
-            } else {
-                this.playersList[i].turn = false;
-            }
+            this.playersList[i].turn = this.playersList[i].playerId === nextTurnPlayer.playerId;
         }
     }
 
