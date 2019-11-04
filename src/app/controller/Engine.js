@@ -46,9 +46,11 @@ export default class Engine {
             if (this._boardController.checkIfMoveIsValid(square)) {
                 this._squareController.markSquare(square, this._activePlayer.playerSign);
                 if (!this.checkWinner()) {
-                    this._playersController.changeTurn();
+                    if (this._boardController.checkBoardFill()){
+                        this._playersController.changeTurn();
+                    }
                 } else {
-                    this.markWinnerSquares();
+                    this._boardController.markWinnerSquares(this._winnerBoxes, "rgba(30, 204, 27, 0.8)", this._winner.playerName);
                     this._gameIsRunning = false;
 
                 }
@@ -60,14 +62,6 @@ export default class Engine {
 
     }
 
-
-    markWinnerSquares() {
-        for (let i = 0; i < this._winnerBoxes.length; i++) {
-            document.getElementById(this._winnerBoxes[i]).style.backgroundColor = "rgba(30, 204, 27, 0.8)";
-        }
-        document.getElementById("winner").innerHTML = "The winner is" + " " + this._winner.playerName;
-
-    }
 
     checkWinner() {
 
