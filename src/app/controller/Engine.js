@@ -28,9 +28,13 @@ export default class Engine {
             engine.resetBoard();
         };
         this._activePlayer = this._playersController.getActivePlayer();
+        let square = this._squareController.getSquareById(id);
         if (this._activePlayer !== null) {
-            this._squareController.markSquare(id, this._activePlayer.playerSign);
-            this._playersController.changeTurn();
+            if (this._boardController.checkIfMoveIsValid(square)){
+                this._squareController.markSquare(square, this._activePlayer.playerSign);
+                this._playersController.changeTurn();
+            }
+
         }
         this._boardController.refreshBoard();
 

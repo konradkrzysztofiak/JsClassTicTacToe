@@ -38,4 +38,11 @@ export default class BoardController {
         this.refreshBoard();
 
     }
+
+    checkIfMoveIsValid(square){
+        if (square.hitSign == " "){
+            return true;
+        }
+        return false;
+    }
 }
