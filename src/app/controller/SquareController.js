@@ -2,7 +2,8 @@ import Square from "../model/Square.js";
 
 export default class SquareController {
     _squaresList = [];
-    constructor(){
+
+    constructor() {
         this._squaresList = this.initSquares();
     }
 
@@ -16,17 +17,16 @@ export default class SquareController {
 
     }
 
-    getSquareById(id){
-        for (let i = 0; i < this._squaresList.length; i++){
-            if (this._squaresList[i].squareId == id){
+    getSquareById(id) {
+        for (let i = 0; i < this._squaresList.length; i++) {
+            if (this._squaresList[i].squareId == id) {
                 return this._squaresList[i];
             }
         }
         return "Error";
     }
 
-    markSquare(id, sign){
-        let square = this.getSquareById(id);
+    markSquare(square, sign) {
         square.hitSign = sign;
     }
 

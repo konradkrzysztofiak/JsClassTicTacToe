@@ -2,7 +2,8 @@ import Player from "../model/Player.js";
 
 export default class PlayersController {
     _playersList = [];
-    constructor(){
+
+    constructor() {
         this._playersList = this.createPlayers();
     }
 
@@ -17,41 +18,46 @@ export default class PlayersController {
         return this._playersList;
     }
 
-    getActivePlayer(){
-        for (let i = 0; i < this.playersList.length; i++){
-            if (this.playersList[i].turn){
+    getActivePlayer() {
+        for (let i = 0; i < this.playersList.length; i++) {
+            if (this.playersList[i].turn) {
                 return this.playersList[i];
             }
         }
         return 0;
     }
 
-    getPlayerWhereTurnFalse(){
-        for (let i = 0; i < this.playersList.length; i++){
-            if (!this.playersList[i].turn){
+    getPlayerWhereTurnFalse() {
+        for (let i = 0; i < this.playersList.length; i++) {
+            if (!this.playersList[i].turn) {
                 return this.playersList[i];
             }
         }
         return "error";
     }
 
-    getPlayerById(id){
-        for (let i = 0; i < this.playersList.length; i++){
-            if (this.playersList[i].playerId == id){
+    getPlayerById(id) {
+        for (let i = 0; i < this.playersList.length; i++) {
+            if (this.playersList[i].playerId === id) {
                 return this.playersList[i];
             }
         }
         return "Error";
     }
 
-    changeTurn(){
-        let nextTurnPlayer = this.getPlayerWhereTurnFalse();
-        for (let i = 0; i < this.playersList.length; i++){
-            if (this.playersList[i].playerId == nextTurnPlayer.playerId){
-                this.playersList[i].turn = true;
-            } else {
-                this.playersList[i].turn = false;
+    getPlayerBySign(sign) {
+        for (let i = 0; i < this.playersList.length; i++) {
+            if (this.playersList[i].playerSign === sign) {
+                return this.playersList[i];
             }
+        }
+        return "Error";
+    }
+
+    changeTurn() {
+        let nextTurnPlayer = this.getPlayerWhereTurnFalse();
+        for (let i = 0; i < this.playersList.length; i++) {
+            this.playersList[i].turn = this.playersList[i].playerId === nextTurnPlayer.playerId;
         }
     }
 

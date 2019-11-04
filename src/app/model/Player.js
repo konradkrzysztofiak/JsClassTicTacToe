@@ -1,4 +1,5 @@
 export default class Player {
+
     constructor(playerId, playerName, playerSign, turn){
         this._playerId = playerId;
         this._playerName = playerName;
