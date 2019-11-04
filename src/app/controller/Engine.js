@@ -9,6 +9,7 @@ export default class Engine {
     _activePlayer;
     _board;
     _winner;
+    _winnerBoxes = [];
     _winPositions = [
         [1, 2, 3],
         [4, 5, 6],
@@ -42,8 +43,9 @@ export default class Engine {
                 if (!this.checkWinner()) {
                     this._playersController.changeTurn();
                 } else {
+                    this.markWinnerSquares();
                     this._gameIsRunning = false;
-                    console.log("The winner is" + " " + this._winner.playerName);
+
                 }
 
             }
@@ -53,6 +55,14 @@ export default class Engine {
 
     }
 
+
+    markWinnerSquares() {
+        for (let i = 0; i < this._winnerBoxes.length; i++) {
+            document.getElementById(this._winnerBoxes[i]).style.backgroundColor = "rgb(30, 204, 27)";
+        }
+        document.getElementById("winner").innerHTML = "The winner is" + " " + this._winner.playerName;
+
+    }
 
     checkWinner() {
 
@@ -64,6 +74,7 @@ export default class Engine {
                         this._squareController.getSquareById(this._winPositions[i][1]).hitSign &&
                         this._squareController.getSquareById(this._winPositions[i][0]).hitSign ===
                         this._squareController.getSquareById(this._winPositions[i][2]).hitSign) {
+                        this._winnerBoxes = this._winPositions[i];
                         this._winner = this._playersController.getPlayerBySign(this._squareController.getSquareById(this._winPositions[i][0]).hitSign);
                         return true;
                     }
