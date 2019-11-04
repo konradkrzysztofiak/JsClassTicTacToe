@@ -3,6 +3,11 @@ import PlayersController from "./PlayersController.js";
 import BoardController from "./BoardController.js";
 
 export default class Engine {
+    //todo create players by given data
+    //todo points
+    //todo show active player turn
+    //todo AI
+
     _squareController;
     _playersController;
     _boardController;
@@ -58,7 +63,7 @@ export default class Engine {
 
     markWinnerSquares() {
         for (let i = 0; i < this._winnerBoxes.length; i++) {
-            document.getElementById(this._winnerBoxes[i]).style.backgroundColor = "rgb(30, 204, 27)";
+            document.getElementById(this._winnerBoxes[i]).style.backgroundColor = "rgba(30, 204, 27, 0.8)";
         }
         document.getElementById("winner").innerHTML = "The winner is" + " " + this._winner.playerName;
 
