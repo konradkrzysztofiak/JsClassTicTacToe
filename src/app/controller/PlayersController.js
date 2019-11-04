@@ -14,6 +14,7 @@ export default class PlayersController {
     }
 
 
+
     get playersList() {
         return this._playersList;
     }
@@ -39,6 +40,15 @@ export default class PlayersController {
     getPlayerById(id) {
         for (let i = 0; i < this.playersList.length; i++) {
             if (this.playersList[i].playerId == id) {
+                return this.playersList[i];
+            }
+        }
+        return "Error";
+    }
+
+    getPlayerBySign(sign){
+        for (let i = 0; i < this.playersList.length; i++) {
+            if (this.playersList[i].playerSign === sign) {
                 return this.playersList[i];
             }
         }

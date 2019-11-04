@@ -8,7 +8,16 @@ export default class Engine {
     _boardController;
     _activePlayer;
     _board;
-    _square;
+    _winner;
+    _winPositions = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+        [1, 4, 7],
+        [2, 5, 8],
+        [3, 6, 9],
+        [1, 5, 9],
+        [3, 5, 7]];
 
     constructor(gameIsRunning) {
         this._gameIsRunning = gameIsRunning;
@@ -20,21 +29,49 @@ export default class Engine {
     }
 
     runApp(id) {
+
+
         this._gameIsRunning = this.checkGameProgress();
         if (this._gameIsRunning) {
             this.buttonsInit();
             this._activePlayer = this._playersController.getActivePlayer();
+
             let square = this._squareController.getSquareById(id);
             if (this._boardController.checkIfMoveIsValid(square)) {
                 this._squareController.markSquare(square, this._activePlayer.playerSign);
-                this._playersController.changeTurn();
+                if (!this.checkWinner()) {
+                    this._playersController.changeTurn();
+                } else {
+                    this._gameIsRunning = false;
+                    console.log("The winner is" + " " + this._winner.playerName);
+                }
+
             }
             this._boardController.refreshBoard();
         }
-        console.log(this.gameIsRunning);
+
 
     }
 
+
+    checkWinner() {
+
+
+        for (let i = 0; i < this._winPositions.length; i++) {
+            for (let j = 0; j < this._winPositions[i].length; j++) {
+                if (this._squareController.getSquareById(this._winPositions[i][j]).hitSign !== " ") {
+                    if (this._squareController.getSquareById(this._winPositions[i][0]).hitSign ===
+                        this._squareController.getSquareById(this._winPositions[i][1]).hitSign &&
+                        this._squareController.getSquareById(this._winPositions[i][0]).hitSign ===
+                        this._squareController.getSquareById(this._winPositions[i][2]).hitSign) {
+                        this._winner = this._playersController.getPlayerBySign(this._squareController.getSquareById(this._winPositions[i][0]).hitSign);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
     buttonsInit() {
         let buttonReset = document.getElementById("reset");
@@ -60,10 +97,6 @@ export default class Engine {
 
     get gameIsRunning() {
         return this._gameIsRunning;
-    }
-
-    getPlayersList() {
-        return this._playersController.playersList;
     }
 
 
