@@ -1,61 +1,61 @@
-import Board from '../model/Board.js';
-import Player from '../model/Player.js';
 import SquareController from './SquareController.js';
 import PlayersController from "./PlayersController.js";
+import BoardController from "./BoardController.js";
 
-let board;
-let squareController;
-let playersController;
-let activeTurn = null;
 export default class Engine {
+    _squareController;
+    _playersController;
+    _boardController;
+    _activePlayer;
+    _board;
+    _square;
 
     constructor(gameIsRunning) {
         this._gameIsRunning = gameIsRunning;
+        this._squareController = new SquareController();
+        this._playersController = new PlayersController();
+        this._boardController = new BoardController(this._squareController.squaresList);
+        this._activePlayer = null;
+        this._board = this._boardController.getBoard();
     }
-
 
     runApp(id) {
 
         let buttonReset = document.getElementById("reset");
-
-        buttonReset.addEventListener("click", this.resetBoard);
-        activeTurn = playersController.getActivePlayer();
-        if (activeTurn !== null){
-            squareController.markSquare(id, activeTurn.playerSign);
-            playersController.changeTurn();
+        let engine = this; // ?
+        buttonReset.onclick = function () {
+            //why i cant type just like this.methodName() ?
+            engine.resetBoard();
+        };
+        this._activePlayer = this._playersController.getActivePlayer();
+        if (this._activePlayer !== null) {
+            this._squareController.markSquare(id, this._activePlayer.playerSign);
+            this._playersController.changeTurn();
         }
-        board.refreshBoard();
-
-
+        this._boardController.refreshBoard();
 
     }
+
 
     get gameIsRunning() {
         return this._gameIsRunning;
     }
 
+//todo init in constructor
     initPlayers() {
-        playersController = new PlayersController();
-        return playersController.playersList;
+        this._playersController = new PlayersController();
+        return this._playersController.playersList;
     }
 
+    getPlayersList() {
+        return this._playersController.playersList;
+    }
 
 
     resetBoard() {
-        for (let i = 0; i < board.squares.length; i++) {
-            board.squares[i].hitSign = " ";
-        }
-        activeTurn = null;
-        board.refreshBoard();
-    }
 
-//todo prywatna metoda
-    initializeBoard() {
-        squareController = new SquareController();
-        board = new Board(squareController.squaresList);
-        board.fillBoard();
+        this._boardController.resetBoard();
     }
-
 
 
 }
