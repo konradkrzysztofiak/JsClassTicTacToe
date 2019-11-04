@@ -39,13 +39,14 @@ export default class BoardController {
     resetBoard() {
         for (let i = 0; i < this._squaresList.length; i++) {
             this._squaresList[i].hitSign = " ";
+            document.getElementById(this._squaresList[i].squareId).style.backgroundColor = "rgba(189, 189, 189, 0.8)";
         }
         this.refreshBoard();
 
     }
 
     checkIfMoveIsValid(square){
-        if (square.hitSign == " "){
+        if (square.hitSign === " "){
             return true;
         }
         return false;
