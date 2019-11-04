@@ -32,6 +32,7 @@ export default class Engine {
         this._boardController = new BoardController(this._squareController.squaresList);
         this._activePlayer = null;
         this._board = this._boardController.getBoard();
+        this._activePlayer = this._playersController.getActivePlayer();
     }
 
     runApp(id) {
@@ -40,14 +41,14 @@ export default class Engine {
         this._gameIsRunning = this.checkGameProgress();
         if (this._gameIsRunning) {
             this.buttonsInit();
-            this._activePlayer = this._playersController.getActivePlayer();
-
             let square = this._squareController.getSquareById(id);
             if (this._boardController.checkIfMoveIsValid(square)) {
                 this._squareController.markSquare(square, this._activePlayer.playerSign);
                 if (!this.checkWinner()) {
                     if (this._boardController.checkBoardFill()){
                         this._playersController.changeTurn();
+                        this._activePlayer = this._playersController.getActivePlayer();
+                        document.getElementById("actualTurn").innerHTML = "Actual Turn: "+this._activePlayer.playerName;
                     }
                 } else {
                     this._boardController.markWinnerSquares(this._winnerBoxes, "rgba(30, 204, 27, 0.8)", this._winner.playerName);
