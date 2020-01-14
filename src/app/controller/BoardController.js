@@ -45,10 +45,39 @@ export default class BoardController {
 
     }
 
-    checkIfMoveIsValid(square){
-        if (square.hitSign === " "){
-            return true;
+    checkBoardFill() {
+        let freeSquares = [];
+        for (let i = 0; i < this._squaresList.length; i++) {
+            if (this._squaresList[i].hitSign === " ") {
+                freeSquares.push(this.squaresList[i])
+            }
         }
-        return false;
+        if (freeSquares.length > 0) {
+            return true
+        } else {
+            this.markWinnerSquares(this._squaresList, "red", "DRAW");
+            this.refreshBoard();
+            return false;
+        }
+    }
+
+    markWinnerSquares(squaresList, color, playerName) {
+        for (let i = 0; i < squaresList.length; i++) {
+            if (playerName !== "DRAW") {
+                document.getElementById(squaresList[i]).style.backgroundColor = color;
+            } else {
+                document.getElementById(squaresList[i].squareId).style.backgroundColor = color;
+            }
+
+        }
+        document.getElementById("winner").innerHTML = "The winner is" + " " + playerName;
+
+    }
+
+    checkIfMoveIsValid(square) {
+
+        return square.hitSign === " ";
+
+
     }
 }
